@@ -1,13 +1,15 @@
 #include "Employee.h"													// Defines class Employee
 #include "Map.h"														// Defines template Map<Key, Value>
-#include <iostream>
 
 
 int main()
 {
 	Map<int, int> a;
 	a.add(5, 10);
+	a.add(10, 20);
+	a.printMap();
 	std::cout<<a.find(5);
+	std::cout<<std::endl<<a.find(10);
 }
 
 

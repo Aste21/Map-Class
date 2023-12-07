@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 
 template <class keyType, class valueType> class Pair{
     private:
@@ -23,6 +24,8 @@ template <class keyType, class valueType> class Map
         Map();
         void add(keyType key, valueType value);
         valueType find(keyType key);
+        void printMap();
+        class OutOfRangeException{};
 };
 
 template<class keyType, class valueType> Pair<keyType, valueType>::Pair(keyType newKey, valueType newValue)
@@ -86,5 +89,13 @@ template <class keyType, class valueType> valueType Map<keyType, valueType>::fin
             return map[i].getValue();
         }
     }
-    return 0;
+    throw OutOfRangeException(); //this is what .at() in classic Map does if it doesnt find anything
+}
+
+template <class keyType, class valueType> void Map<keyType, valueType>::printMap()
+{
+    for(size_t i = 0; i < numberOfPairs; i++)
+    {
+        std::cout<<map[i].getKey()<<"    "<<map[i].getValue<<std::endl;
+    }
 }

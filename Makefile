@@ -6,7 +6,7 @@ sources = TestMap.cpp
 
 
 # Specify name of your program:
-executable = myMatrix
+executable = myMap
 
 $(executable): $(headers) $(sources)
 	g++ -g -Wall -pedantic $(sources) -o $(executable)

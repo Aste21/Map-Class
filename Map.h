@@ -10,6 +10,7 @@ private:
 
 public:
     Pair() = default;
+    ~Pair() = default;
     Pair(keyType newKey, valueType newValue);
     keyType getKey();
     void setKey(keyType newKey);
@@ -30,6 +31,7 @@ private:
 public:
     Map();
     ~Map();
+    Map(const Map<keyType, valueType> &other);
     void add(keyType key, valueType value);
     valueType *find(keyType key);
     void printMap();
@@ -90,12 +92,30 @@ valueType *Pair<keyType, valueType>::getValuePointer()
 
 template <class keyType, class valueType>
 Map<keyType, valueType>::Map()
-    : map{NULL}, numberOfPairs{0} {}
+    : map{nullptr}, numberOfPairs{0} {}
+
+template <class keyType, class valueType>
+Map<keyType, valueType>::Map(const Map<keyType, valueType> &other)
+{
+    // Allocate new memory
+    numberOfPairs = other.numberOfPairs;
+    map = new Pair<keyType, valueType>[numberOfPairs];
+
+    // Copy data from other to this
+    for (size_t i = 0; i < numberOfPairs; ++i)
+    {
+        map[i] = other.map[i];
+    }
+}
 
 template <class keyType, class valueType>
 Map<keyType, valueType>::~Map()
 {
-    delete map;
+    if(map != nullptr)
+    {
+        delete[] map;
+    }
+    map = nullptr;
     numberOfPairs = 0;
 }
 
@@ -191,10 +211,10 @@ void Map<keyType, valueType>::clear()
 {
     if (map != nullptr)
     {
-        delete map;
-        map = nullptr;
-        numberOfPairs = 0;
+        delete[] map;
     }
+    map = nullptr;
+    numberOfPairs = 0;
 }
 
 template <class keyType, class valueType>

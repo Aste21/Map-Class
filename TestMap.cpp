@@ -12,67 +12,13 @@ void addEmployees(Database &database);
 void modifyEmployees(Database &database);
 void addBooks(Library &library);
 void modifyBooks(Library &library);
+void testEmployees();
+void testBooks();
 
 int main()
 {
-	Database database;
-	addEmployees(database);
-
-	Database newDatabase = database;									// Make a copy of database
-	newDatabase.add(830505432, Employee("Ewa Nowak", "charwoman", 43)); // Add fourth employee
-	modifyEmployees(newDatabase);
-
-	cout << "Original database:" << endl
-		 << database << endl;
-	cout << "Modified database:" << endl
-		 << newDatabase << endl;
-
-	database = newDatabase; // Update original database
-
-	cout << "Database after the assignment:" << endl
-		 << database << endl;
-
-	addEmployees(database);
-
-	cout << "Database after adding already existing keys:" << endl
-		 << database << endl;
-
-
-
-	cout <<"Test of finding inexisting key:" << endl;
-	try
-	{
-		database.find(123);
-		cout << "Exception thrown and catched incorrectly." << endl << endl;
-	}
-	catch(const OutOfRangeException e)
-	{
-		cout << "Exception thrown and catched correctly." << endl << endl;
-	}
-	
-
-	Library library;
-
-	// Test Book Addition
-	addBooks(library);
-
-	cout << "Original library:" << endl
-		 << library << endl;
-
-	Library newLibrary = library;
-
-	newLibrary.add("The Great Gatsby", Book("F. Scott Fitzgerald", "Classic", 180, true));
-
-	// Test Book Modification
-	modifyBooks(newLibrary);
-
-	// Print the library after modification
-	std::cout << "Library Contents after Modification:" << std::endl;
-	std::cout << newLibrary << std::endl;
-
-	library = newLibrary;
-	cout << "Library after the assignment:" << endl
-		 << library << endl;
+	testEmployees();
+	testBooks();
 }
 
 void addEmployees(Database &database)
@@ -95,18 +41,85 @@ void modifyEmployees(Database &database)
 
 void addBooks(Library &library)
 {
-    // Add books to the library
-    library.add("The Catcher in the Rye", Book("J.D. Salinger", "Fiction", 224, false));
-    library.add("To Kill a Mockingbird", Book("Harper Lee", "Classic", 281, true));
-    library.add("1984", Book("George Orwell", "Dystopian", 328, false));
+	// Add books to the library
+	library.add("The Catcher in the Rye", Book("J.D. Salinger", "Fiction", 224, false));
+	library.add("To Kill a Mockingbird", Book("Harper Lee", "Classic", 281, true));
+	library.add("1984", Book("George Orwell", "Dystopian", 328, false));
 }
 
 void modifyBooks(Library &library)
 {
-    // Find and modify a book
-    Book *bookPtr = library.find("The Catcher in the Rye");
-    if (bookPtr != nullptr)
-    {
-        bookPtr->isBorrowed = true;
-    }
+	// Find and modify a book
+	Book *bookPtr = library.find("The Catcher in the Rye");
+	if (bookPtr != nullptr)
+	{
+		bookPtr->isBorrowed = true;
+	}
+}
+
+void testEmployees()
+{
+	Database database;
+	addEmployees(database);
+
+	cout << "Original database:" << endl
+		 << database << endl;
+
+	Database newDatabase = database;									// Make a copy of database
+	newDatabase.add(830505432, Employee("Ewa Nowak", "charwoman", 43)); // Add fourth employee
+	modifyEmployees(newDatabase);
+
+	cout << "Original database:" << endl
+		 << database << endl;
+	cout << "Modified database:" << endl
+		 << newDatabase << endl;
+
+	database = newDatabase; // Update original database
+
+	cout << "Database after the assignment:" << endl
+		 << database << endl;
+
+	addEmployees(database);
+
+	cout << "Database after adding already existing keys:" << endl
+		 << database << endl;
+
+	cout << "Test of finding inexisting key:" << endl;
+	try
+	{
+		database.find(123);
+		cout << "Exception thrown and catched incorrectly." << endl
+			 << endl;
+	}
+	catch (const OutOfRangeException e)
+	{
+		cout << "Exception thrown and catched correctly." << endl
+			 << endl;
+	}
+}
+
+void testBooks()
+{
+	Library library;
+
+	// Test Book Addition
+	addBooks(library);
+
+	cout << "Original library:" << endl
+		 << library << endl;
+
+	Library newLibrary = library;
+
+	newLibrary.add("The Great Gatsby", Book("F. Scott Fitzgerald", "Classic", 180, true));
+
+	// Test Book Modification
+	modifyBooks(newLibrary);
+
+	// Print the library after modification
+	std::cout << "Library Contents after Modification:" << std::endl;
+	std::cout << newLibrary << std::endl;
+
+	library = newLibrary;
+	cout << "Library after the assignment:" << endl
+		 << library << endl;
 }
